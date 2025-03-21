@@ -4,17 +4,23 @@ return array(
 	'utn-bite-embed' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
-		'name' => 'create-block/utn-bite-embed',
+		'name' => 'utn-bite-embed/utn-bite-embed',
 		'version' => '0.1.0',
 		'title' => 'Utn Bite Embed',
 		'category' => 'widgets',
-		'icon' => 'smiley',
-		'description' => 'Example block scaffolded with Create Block tool.',
+		'icon' => 'database',
+		'description' => 'Embeds BITE Data via the API',
 		'example' => array(
 			
 		),
 		'supports' => array(
 			'html' => false
+		),
+		'attributes' => array(
+			'data' => array(
+				'type' => 'string',
+				'default' => ''
+			)
 		),
 		'textdomain' => 'utn-bite-embed',
 		'editorScript' => 'file:./index.js',

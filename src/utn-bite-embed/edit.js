@@ -1,41 +1,69 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
-import { __ } from '@wordpress/i18n';
+import {__} from '@wordpress/i18n';
+import {
+	InspectorControls,
+	useBlockProps
+} from '@wordpress/block-editor';
+import {PanelBody, SelectControl, Placeholder} from '@wordpress/components';
+import {useEffect} from '@wordpress/element';
+import ServerSideRender from "@wordpress/server-side-render";
+import biteSources from '../data-sources/bite-sources.json'
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps } from '@wordpress/block-editor';
+const allowedDe = biteSources.de || [];
+const allowedEn = biteSources.en || [];
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
-import './editor.scss';
+const allowedValues = [...allowedDe, ...allowedEn];
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
-export default function Edit() {
+export default function Edit({attributes, setAttributes}) {
+	const {data} = attributes;
+	const blockProps = useBlockProps();
+
+	useEffect(() => {
+		if ('function' === typeof wp?.enqueueScript) {
+			wp.enqueueScript('utn-bite-embed');
+		}
+	}, []);
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Utn Bite Embed – hello from the editor!',
-				'utn-bite-embed'
-			) }
-		</p>
+		<>
+			<InspectorControls>
+				<PanelBody
+					title={__('Bite Embed Settings', 'utn-bite-embed')}
+					initialOpen={true}
+				>
+					<SelectControl
+						label={__('Select a data listing', 'utn-bite-embed')}
+						value={data}
+						onChange={(newValue) => setAttributes({data: newValue})}
+						options={[
+							{label: '---', value: ''}, // The "placeholder" option
+							...allowedValues.map((item) => ({
+								label: item,
+								value: item,
+							})),
+						]}
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<div {...blockProps}>
+				<Placeholder>
+					<div>
+						<h2>Select the BITE Data Source</h2>
+						<hr/>
+						<SelectControl
+							label={__('Select a data listing', 'utn-bite-embed')}
+							value={data}
+							onChange={(newValue) => setAttributes({data: newValue})}
+							options={[
+								{label: '---', value: ''}, // The "placeholder" option
+								...allowedValues.map((item) => ({
+									label: item,
+									value: item,
+								})),
+							]}
+						/>
+					</div>
+				</Placeholder>
+			</div>
+		</>
 	);
 }
