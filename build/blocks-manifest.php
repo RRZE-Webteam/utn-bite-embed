@@ -6,10 +6,19 @@ return array(
 		'apiVersion' => 3,
 		'name' => 'utn-bite-embed/utn-bite-embed',
 		'version' => '0.1.0',
-		'title' => 'Utn Bite Embed',
+		'title' => 'Utn B-ITE Embed',
+		'keywords' => array(
+			'bite',
+			'BITE',
+			'jobs',
+			'b-ite',
+			'embed',
+			'stellenanzeigen',
+			'stellen'
+		),
 		'category' => 'widgets',
 		'icon' => 'database',
-		'description' => 'Embeds BITE Data via the API',
+		'description' => 'Embeds B-ITE Data via the API',
 		'example' => array(
 			
 		),
@@ -25,7 +34,6 @@ return array(
 		'textdomain' => 'utn-bite-embed',
 		'editorScript' => 'file:./index.js',
 		'editorStyle' => 'file:./index.css',
-		'style' => 'file:./style-index.css',
-		'viewScript' => 'file:./view.js'
+		'style' => 'file:./style-index.css'
 	)
 );

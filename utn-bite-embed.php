@@ -16,8 +16,8 @@ namespace UTN\BiteEmbed;
 
 defined('ABSPATH') || exit;
 
-const UTN_PHP_VERSION = '7.4';
-const UTN_WP_VERSION = '5.8';
+const UTN_PHP_VERSION = '8.2';
+const UTN_WP_VERSION = '6.7';
 
 /**
  * SPL Autoloader (PSR-4).
